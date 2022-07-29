@@ -38,3 +38,15 @@ models:
       +enabled : true
       +materialized: table
       +schema: stg_foodexports
+    warehouse:
+      +enabled : true
+      +materialized : table
+      +schema : dwh_foodexports
+      dim_date:
+        +materialized: view
+    analytics_obt:
+      +enabled : true
+      +materialized : table
+      +schema : analytics_food_exports
+      
+

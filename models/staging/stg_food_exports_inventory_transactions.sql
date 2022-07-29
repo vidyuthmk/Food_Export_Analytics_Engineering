@@ -1,6 +1,14 @@
-with source as(
-    select * from {{ source('northwind' ,'inventory_transactions')}}
+WITH source AS(
+    SELECT
+        *
+    FROM
+        {{ source(
+            'northwind',
+            'inventory_transactions'
+        ) }}
 )
-select *,
-current_timestamp() as ingestion_timestamp 
-from source
+SELECT
+    *,
+    CURRENT_TIMESTAMP() AS ingestion_timestamp
+FROM
+    source

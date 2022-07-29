@@ -1,0 +1,87 @@
+WITH source AS (
+    SELECT
+        po.purchase_order_id,
+        po.product_id,
+        po.quantity,
+        po.unit_cost,
+        po.date_received,
+        po.posted_to_inventory,
+        po.inventory_id,
+        po.supplier_id,
+        po.created_by,
+        po.submitted_date,
+        po.creation_date,
+        po.status_id,
+        po.expected_date,
+        po.shipping_fee,
+        po.taxes,
+        po.payment_date,
+        po.payment_amount,
+        po.payment_method,
+        po.notes,
+        po.approved_by,
+        po.approved_date,
+        po.submitted_by,
+        C.customer_id AS unique_customer_id,
+        C.company AS customer_company,
+        C.last_name AS customer_last_name,
+        C.first_name AS customer_first_name,
+        C.email_address AS customer_email_address,
+        C.job_title AS customer_job_title,
+        C.business_phone AS customer_business_phone,
+        C.home_phone AS customer_home_phone,
+        C.mobile_phone AS customer_mobile_phone,
+        C.fax_number AS customer_fax_number,
+        C.address AS customer_address,
+        C.city AS customer_city,
+        C.state_province AS customer_state_province,
+        C.zip_postal_code AS customer_zip_postal_code,
+        C.country_region AS customer_country_region,
+        C.web_page AS customer_web_page,
+        C.notes AS customer_notes,
+        C.attachments AS customer_attachments,
+        e.employee_id AS unique_employee_id,
+        e.company AS employee_company,
+        e.last_name AS employee_last_name,
+        e.first_name AS employee_first_name,
+        e.email_address AS employee_email_address,
+        e.job_title AS employee_job_title,
+        e.business_phone AS employee_business_phone,
+        e.home_phone AS employee_home_phone,
+        e.mobile_phone AS employee_mobile_phone,
+        e.fax_number AS employee_fax_number,
+        e.address AS employee_address,
+        e.city AS employee_city,
+        e.state_province AS employee_state_province,
+        e.zip_postal_code AS employee_zip_postal_code,
+        e.country_region AS employee_country_region,
+        e.web_page AS employee_web_page,
+        e.notes AS employee_notes,
+        e.attachments AS employee_attachments,
+        p.product_id AS unique_product_id,
+        p.product_code,
+        p.product_name,
+        p.description AS product_description,
+        p.supplier_company AS product_supplier_company,
+        p.standard_cost AS product_standard_cost,
+        p.list_price AS product_id_list_price,
+        p.reorder_level AS product_reorder_level,
+        p.target_level AS product_target_level,
+        p.quantity_per_unit AS product_quantity_per_unit,
+        p.discontinued AS product_discontinued,
+        p.minimum_reorder_quantity AS product_minimum_reorder_quantity,
+        p.category AS product_category,
+        p.attachments AS product_attachments
+    FROM
+        {{ ref('fact_purchase_order') }} AS po
+        LEFT JOIN {{ ref('dim_customer') }} AS C
+        ON po.customer_id = C.customer_id
+        LEFT JOIN {{ ref('dim_employee') }} AS e
+        ON e.employee_id = po.employee_id
+        LEFT JOIN {{ ref('dim_products') }} AS p
+        ON p.product_id = po.product_id
+)
+SELECT
+    *
+FROM
+    source
