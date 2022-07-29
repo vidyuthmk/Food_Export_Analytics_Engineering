@@ -44,4 +44,9 @@ models:
       +schema : dwh_foodexports
       dim_date:
         +materialized: view
+    analytics_obt:
+      +enabled : true
+      +materialized : table
+      +schema : analytics_food_exports
+      
 

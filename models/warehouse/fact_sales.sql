@@ -1,10 +1,9 @@
-{{ config(
-    partition_by ={ 'field' :'order_date',
-    'data_type' :'date' }
+{# {{ config(
+partition_by ={ 'field' :'order_date',
+'data_type' :'date' }
 ) }}
-
+#}
 WITH source AS (
-
     SELECT
         od.id AS order_id,
         od.product_id,

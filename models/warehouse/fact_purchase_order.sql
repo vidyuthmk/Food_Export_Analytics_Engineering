@@ -1,10 +1,9 @@
-{{ config(
-    partition_by ={ 'field' :'creation_date',
-    'data_type' :'date' }
+{# {{ config(
+partition_by ={ 'field' :'creation_date',
+'data_type' :'date' }
 ) }}
-
+#}
 WITH source AS (
-
     SELECT
         C.id AS customer_id,
         e.id AS employee_id,
